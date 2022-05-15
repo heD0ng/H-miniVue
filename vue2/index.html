@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h3>{{msg}}</h3>
+        <p>{{count}}</p>
+        <hr>
+        <h1>v-text</h1>
+        <!-- <p v-text="total"></p> -->
+        <p>{{total}}</p>
+        <hr>
+        <input type="text" v-model='count'>
+        <button type="button" v-on:click="add">+</button>
+        <button type="button" v-on:click="changeMsg">修改</button>
+        <button type="button" v-on:click="resetMsg">重置</button>
+    </div>
+    <script src="./index.js"></script>
+    <script>
+        const app = new MiniVue({
+            el:'#app',
+            data:{
+                msg:'hello,mini vue.js',
+                count:666,
+                a : 2,
+                b : 1
+            },
+            methods:{
+                add(){
+                    this.count++
+                    this.a++
+                },
+                changeMsg(){
+                    this.msg = 'hello,changeMsg'
+                },
+                resetMsg(){
+                    this.msg = 'hello,mini vue.js'
+                }
+            },
+            computed:{
+                total(){
+                    return this.count + this.a
+                }
+            }
+        })
+    </script>
+</body>
+</html>

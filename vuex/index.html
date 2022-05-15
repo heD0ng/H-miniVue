@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{$store.state.count}}</h1>
+        <h1>{{num}}</h1>
+        <h1>{{$store.getter.doubleCount}}</h1>
+        <button @click="$store.commit('add')">Add</button>
+        <button @click="$store.dispatch('add')">asyncAdd</button>
+    </div>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./index.js"></script>
+    <script type="module">
+        console.log(Vue)
+        Vue.use(Vuex)
+        const store = new Vuex.Store({
+            state: {
+                count: 1
+            },
+            mutations:{
+                add(state){
+                    return state.count++
+                }
+            },
+            actions:{
+                add({commit}){
+                    setTimeout(()=>{
+                        commit('add')
+                    }, 1000)
+                }
+            },
+            getter:{
+                doubleCount(state){
+                    return state.count * 2
+                }
+            }
+        })
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                num : 1
+            },
+            methods:{
+                addClick: function(e){
+                    console.log(1111)
+                    this.$store.commit('add')
+                    // console.log(store.state)
+                }
+            },
+            store
+        })
+        
+        console.log(vm.$store);
+        
+    </script>
+</body>
+</html>
